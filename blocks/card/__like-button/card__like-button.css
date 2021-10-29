@@ -5,3 +5,7 @@
   border: none;
   padding: 0;
 }
+
+.card__like-button:hover {
+  opacity: .5;
+}

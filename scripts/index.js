@@ -17,11 +17,13 @@ function closePopup() {
   popup.classList.remove('popup_is-open');
 }
 
-function popupClickHandler(event) {
-  if (event.target.classList.contains('popup')) {
-    closePopup();
+/* 
+  function popupClickHandler(event) {
+    if (event.target.classList.contains('popup')) {
+      closePopup();
+    }
   }
-}
+*/
 
 function submitForm(event) {
   event.preventDefault();
@@ -32,5 +34,5 @@ function submitForm(event) {
 
 editButton.addEventListener('click', openPopup);
 popupCloseButton.addEventListener('click', closePopup);
-popup.addEventListener('click', popupClickHandler);
+// popup.addEventListener('click', popupClickHandler);
 popupForm.addEventListener('submit', submitForm);

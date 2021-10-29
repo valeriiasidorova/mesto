@@ -3,6 +3,10 @@
   font-size: 42px;
   line-height: 114%;
   margin: 0 16px 10px 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 294px;
 }
 
 @media screen and (max-width: 689px) {
@@ -10,6 +14,7 @@
     font-size: 36px;
     text-align: center;
     margin-left: 35px;
+    max-width: 251px;
   }
 }
 
@@ -17,5 +22,6 @@
   .profile__name {
     font-size: 27px;
     line-height: 33px;
+    max-width: 189px;
   }
 }

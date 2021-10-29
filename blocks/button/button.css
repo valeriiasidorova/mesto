@@ -2,11 +2,9 @@
   background-repeat: no-repeat;
   background-color: transparent;
   background-position: center;
-  cursor: grab;
-  opacity: .5s;
+  cursor: pointer;
 }
 
 .button:hover {
   opacity: .6;
-  transition: opacity .2s;
 }
