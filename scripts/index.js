@@ -7,6 +7,12 @@ const profileName = document.querySelector('.profile__name');
 const inputBio = document.querySelector('.popup__input_type_bio');
 const profileBio = document.querySelector('.profile__bio');
 
+// задача 1: создать темплейт
+// найти в DOM  (".template").content
+// cloneNode('true')
+// forEach
+// append
+
 function openPopup() {
   popup.classList.add('popup_is-open');
   inputName.value = profileName.textContent;
@@ -17,7 +23,7 @@ function closePopup() {
   popup.classList.remove('popup_is-open');
 }
 
-/* 
+/*
   function popupClickHandler(event) {
     if (event.target.classList.contains('popup')) {
       closePopup();
