@@ -45,12 +45,13 @@ initialCards.forEach((el) => {
   cardContent.querySelector('.card__image').alt = el.name;
   cardContent.querySelector('.card__title').textContent = el.name;
 
-  cards.append(cardContent);
+  cards.append(cardContent); //задача 3: вынести в отдельную функцию?
 });
-
 
 function openPopup() {
   popup.classList.add('popup_is-open');
+
+  // вынести в отдельную функцию
   inputName.value = profileName.textContent;
   inputBio.value = profileBio.textContent;
 }
