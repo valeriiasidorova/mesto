@@ -7,6 +7,21 @@ const profileName = document.querySelector('.profile__name');
 const inputBio = document.querySelector('.popup__input_type_bio');
 const profileBio = document.querySelector('.profile__bio');
 
+// задача 1: создать темплейт для карточек
+const template = document.querySelector('.template').content;
+const cards = document.querySelector('.cards');
+
+initialCards.forEach((el) => {
+  const cardContent = template.cloneNode(true);
+
+  cardContent.querySelector('.card__image').src = el.link;
+  cardContent.querySelector('.card__image').alt = el.name;
+  cardContent.querySelector('.card__title').textContent = el.name;
+
+  // задача 3: вынести в отдельную функцию?
+  cards.append(cardContent);
+});
+
 function openPopup() {
   popup.classList.add('popup_is-open');
   inputName.value = profileName.textContent;
@@ -17,7 +32,7 @@ function closePopup() {
   popup.classList.remove('popup_is-open');
 }
 
-/* 
+/*
   function popupClickHandler(event) {
     if (event.target.classList.contains('popup')) {
       closePopup();
