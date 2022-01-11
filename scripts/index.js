@@ -27,10 +27,13 @@ initialCards.forEach(addCard);
 function createCard(el) {
   const cardContent = template.cloneNode(true);
   const cardImage = cardContent.querySelector('.card__image');
+  const likeBtn = cardContent.querySelector('.card__like-button');
 
   cardContent.querySelector('.card__title').textContent = el.name;
   cardImage.src = el.link;
   cardImage.alt = el.name;
+
+  likeBtn.addEventListener('click', likeCard);
 
   return cardContent;
 }
@@ -42,6 +45,10 @@ function addCard(el) {
 function autofillProfileInputs() {
   inputProfileName.value = profileName.textContent;
   inputProfileBio.value = profileBio.textContent;
+}
+
+function likeCard(e) {
+  e.target.classList.toggle('card__like-button_active');
 }
 
 // открыть попап
@@ -66,8 +73,6 @@ function popupClickHandler(event) {
 function submitFormProfile(e) {
   e.preventDefault();
 
-  // рефакторинг: вынести в отдельную функцию
-  // или создать отдельную ф-цию для каждой формы +
   profileName.textContent = inputProfileName.value;
   profileBio.textContent = inputProfileBio.value;
   closePopup(popup);
@@ -75,6 +80,7 @@ function submitFormProfile(e) {
 
 function submitFormPlace(e) {
   e.preventDefault();
+
   const newCard = {
       name: inputPlaceName.value,
       link: inputPlaceLink.value
@@ -89,11 +95,11 @@ function submitFormPlace(e) {
 // попап 1
 btnEditProfile.addEventListener('click', () => openPopup(popupProfile)); // открыть попап
 btnClosePopupProfile.addEventListener('click', () => closePopup(popupProfile)); // закрыть попап
-formPopupProfile.addEventListener('submit', submitFormProfile); // отправить форму, закрыть попап и обновить инфу в профиле
+formPopupProfile.addEventListener('submit', submitFormProfile); // отправить форму, обновить инфу в профиле и закрыть попап
 
 // popup.addEventListener('click', popupClickHandler); // закрыть попап по клику за его пределами
 
 // попап 2
 btnAddCard.addEventListener('click', () => openPopup(popupPlace)); // открыть попап
 btnClosePopupPlace.addEventListener('click', () => closePopup(popupPlace)); // закрыть попап
-formPopupPlace.addEventListener('submit', submitFormPlace); // отправить форму и закрыть попап
+formPopupPlace.addEventListener('submit', submitFormPlace); // отправить форму, добавить карточку и закрыть попап
