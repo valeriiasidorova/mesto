@@ -1,5 +1,5 @@
 .card__like-button {
-  background-image: url("../../../images/like.svg");
+  background-image: url("../../../images/like_disabled.svg");
   width: 22px;
   height: 19px;
   border: none;
