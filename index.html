@@ -1,63 +1,135 @@
 <!DOCTYPE html>
 <html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Жак-Ив Кусто</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Жак-Ив Кусто</title>
-  <link rel="stylesheet" href="./pages/index.css" />
-</head>
+  <body class="page">
+    <header class="header">
+      <img class="header__logo" src="./images/header__logo.svg" alt="Логотип" />
+    </header>
 
-<body class="page">
-  <header class="header">
-    <img class="header__logo" src="./images/header__logo.svg" alt="Логотип" />
-  </header>
-
-  <main class="content">
-    <section class="profile">
-      <img class="profile__avatar" src="./images/profile__avatar.jpg" alt="Фото профиля" />
-      <div class="profile__info">
-        <div class="profile__edit">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="button button_type_edit" type="button" aria-label="Редактировать"></button>
+    <main class="content">
+      <section class="profile">
+        <img
+          class="profile__avatar"
+          src="./images/profile__avatar.jpg"
+          alt="Фото профиля"
+        />
+        <div class="profile__info">
+          <div class="profile__edit">
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <button
+              class="button button_type_edit"
+              type="button"
+              aria-label="Редактировать"
+            ></button>
+          </div>
+          <p class="profile__bio">Исследователь океана</p>
         </div>
-        <p class="profile__bio">Исследователь океана</p>
+        <button
+          class="button button_type_add"
+          type="button"
+          aria-label="Добавить"
+        ></button>
+      </section>
+
+      <section class="cards"></section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
+    </footer>
+
+    <div class="popup popup_type_profile">
+      <div class="popup__container">
+        <button
+          class="button popup__close-button popup__close-button_profile"
+          type="button"
+          aria-label="Закрыть"
+        ></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form popup__form_profile" name="profile-info">
+          <input
+            class="popup__input popup__input_type_profile-name"
+            type="text"
+            name="profile-name"
+            required
+          />
+          <input
+            class="popup__input popup__input_type_profile-bio"
+            type="text"
+            name="profile-bio"
+            required
+          />
+          <button
+            class="button popup__save-button"
+            type="submit"
+            aria-label="Сохранить"
+          >
+            Сохранить
+          </button>
+        </form>
       </div>
-      <button class="button button_type_add" type="button" aria-label="Добавить"></button>
-    </section>
-
-    <section class="cards">
-    </section>
-  </main>
-
-  <footer class="footer">
-    <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
-  </footer>
-
-  <div class="popup">
-    <div class="popup__container">
-      <button class="button popup__close-button" type="button" aria-label="Закрыть"></button>
-      <h2 class="popup__title">Редактировать профиль</h2>
-      <form class="popup__form" name="profile-info">
-        <input class="popup__input popup__input_type_name" type="text" name="profile-name" required>
-        <input class="popup__input popup__input_type_bio" type="text" name="profile-bio" required>
-        <button class="button popup__save-button" type="submit" aria-label="Сохранить">Сохранить</button>
-      </form>
     </div>
-  </div>
 
-  <template class="template">
-    <article class="card">
-      <button class="button card__remove-button" type="button" aria-label="Удалить карточку"></button>
-      <img class="card__image" src="#" alt="#" />
-      <div class="card__container">
-        <h2 class="card__title"></h2>
-        <button class="button card__like-button" type="button" aria-label="Поставить лайк"></button>
+    <div class="popup popup_type_place">
+      <div class="popup__container">
+        <button
+          class="button popup__close-button popup__close-button_place"
+          type="button"
+          aria-label="Закрыть"
+        ></button>
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form popup__form_place" name="add-new-place">
+          <input
+            class="popup__input popup__input_type_place-name"
+            type="text"
+            name="place-name"
+            placeholder="Название"
+            required
+          />
+          <input
+            class="popup__input popup__input_type_place-link"
+            type="text"
+            name="place-link"
+            placeholder="Ссылка на картинку"
+            required
+          />
+          <button
+            class="button popup__save-button"
+            type="submit"
+            aria-label="Создать"
+          >
+            Создать
+          </button>
+        </form>
       </div>
-    </article>
-  </template>
+    </div>
 
-  <script src="./scripts/index.js"></script>
-</body>
+    <template class="template">
+      <article class="card">
+        <button
+          class="button card__remove-button"
+          type="button"
+          aria-label="Удалить карточку"
+        ></button>
+        <img class="card__image" src="#" alt="#" />
+        <div class="card__container">
+          <h2 class="card__title"></h2>
+          <button
+            class="button card__like-button"
+            type="button"
+            aria-label="Поставить лайк"
+          ></button>
+        </div>
+      </article>
+    </template>
 
+    <script src="./scripts/cards.js"></script>
+    <script src="./scripts/index.js"></script>
+  </body>
 </html>
