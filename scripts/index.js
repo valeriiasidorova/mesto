@@ -32,7 +32,6 @@ function createCard(el) {
   cardImage.src = el.link;
   cardImage.alt = el.name;
 
-
   return cardContent;
 }
 
@@ -78,7 +77,8 @@ function submitFormPlace(e) {
       name: inputPlaceName.value,
       link: inputPlaceLink.value
   }
-  // задача 3: вызвать отсюда addCard?
+
+  addCard(newCard);
   closePopup(popupPlace);
   formPopupPlace.reset();
 };
