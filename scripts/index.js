@@ -27,13 +27,16 @@ initialCards.forEach(addCard);
 function createCard(el) {
   const cardContent = template.cloneNode(true);
   const cardImage = cardContent.querySelector('.card__image');
-  const likeBtn = cardContent.querySelector('.card__like-button');
+  const cardTitle = cardContent.querySelector('.card__title');
+  const btnLikeCard = cardContent.querySelector('.card__like-button');
+  const btnRemoveCard = cardContent.querySelector('.card__remove-button');
 
-  cardContent.querySelector('.card__title').textContent = el.name;
   cardImage.src = el.link;
   cardImage.alt = el.name;
+  cardTitle.textContent = el.name;
 
-  likeBtn.addEventListener('click', likeCard);
+  btnLikeCard.addEventListener('click', likeCard);
+  btnRemoveCard.addEventListener('click', removeCard);
 
   return cardContent;
 }
@@ -49,6 +52,10 @@ function autofillProfileInputs() {
 
 function likeCard(e) {
   e.target.classList.toggle('card__like-button_active');
+}
+
+function removeCard(e) {
+  e.target.parentElement.remove();
 }
 
 // открыть попап
