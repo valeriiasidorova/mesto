@@ -27,16 +27,16 @@ initialCards.forEach(addCard);
 function createCard(el) {
   const cardContent = template.cloneNode(true);
   const cardImage = cardContent.querySelector('.card__image');
+  const cardTitle = cardContent.querySelector('.card__title');
   const btnLikeCard = cardContent.querySelector('.card__like-button');
   const btnRemoveCard = cardContent.querySelector('.card__remove-button');
 
-  cardContent.querySelector('.card__title').textContent = el.name;
   cardImage.src = el.link;
   cardImage.alt = el.name;
+  cardTitle.textContent = el.name;
 
   btnLikeCard.addEventListener('click', likeCard);
   btnRemoveCard.addEventListener('click', removeCard);
-
 
   return cardContent;
 }
