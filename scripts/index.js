@@ -1,5 +1,9 @@
 const popup = document.querySelector('.popup');
 
+// элементы для работы с темплейтом
+const template = document.querySelector('.template').content;
+const cards = document.querySelector('.cards');
+
 // элементы попапа 1 (ред. профиль)
 const popupProfile = document.querySelector('.popup_type_profile');
 const btnEditProfile = document.querySelector('.button_type_edit');
@@ -18,25 +22,23 @@ const formPopupPlace = popupPlace.querySelector('.popup__form_place');
 const inputPlaceName = popupPlace.querySelector('.popup__input_type_place-name');
 const inputPlaceLink = popupPlace.querySelector('.popup__input_type_place-link');
 
+initialCards.forEach(addCard);
 
-// задача 1: создать темплейт для карточек +
-// отрефакторить под следующие задачи
-const template = document.querySelector('.template').content;
-const cards = document.querySelector('.cards');
-
-initialCards.forEach((el) => {
+function createCard(el) {
   const cardContent = template.cloneNode(true);
+  const cardImage = cardContent.querySelector('.card__image');
 
-  cardContent.querySelector('.card__image').src = el.link;
-  cardContent.querySelector('.card__image').alt = el.name;
   cardContent.querySelector('.card__title').textContent = el.name;
+  cardImage.src = el.link;
+  cardImage.alt = el.name;
 
-  // задача 3: вынести в отдельную функцию?
-  cards.append(cardContent);
-});
 
-// задача 2: привязать кнопки к попапу добавления карточки (попап 2) +
-//           переписать сабмиты форм +
+  return cardContent;
+}
+
+function addCard(el) {
+  cards.prepend(createCard(el));
+}
 
 // открыть попап
 function openPopup(popup) {
@@ -76,14 +78,12 @@ function submitFormPlace(e) {
       name: inputPlaceName.value,
       link: inputPlaceLink.value
   }
-  // добавить сюда создание карточки?
+  // задача 3: вызвать отсюда addCard?
   closePopup(popupPlace);
   formPopupPlace.reset();
 };
 
-
 // ---------- Слушатели ----------
-
 // попап 1
 btnEditProfile.addEventListener('click', () => openPopup(popupProfile)); // открыть попап
 btnClosePopupProfile.addEventListener('click', () => closePopup(popupProfile)); // закрыть попап
