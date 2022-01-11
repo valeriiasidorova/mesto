@@ -39,13 +39,15 @@ function addCard(el) {
   cards.prepend(createCard(el));
 }
 
+function autofillProfileInputs() {
+  inputProfileName.value = profileName.textContent;
+  inputProfileBio.value = profileBio.textContent;
+}
+
 // открыть попап
 function openPopup(popup) {
   popup.classList.add('popup_is-open');
-
-  // рефакторинг: вынести в отдельную функцию
-  inputProfileName.value = profileName.textContent;
-  inputProfileBio.value = profileBio.textContent;
+  autofillProfileInputs();
 }
 
 // закрыть попап
