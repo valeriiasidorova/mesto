@@ -28,7 +28,6 @@ const popupImg = popupZoom.querySelector('.popup__img');
 const popupImgTitle = popupZoom.querySelector('.popup__img-title');
 const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
 
-
 initialCards.forEach(addCard);
 
 function createCard(el) {
@@ -44,6 +43,7 @@ function createCard(el) {
 
   btnLikeCard.addEventListener('click', likeCard);
   btnRemoveCard.addEventListener('click', removeCard);
+  cardImage.addEventListener('click', () => openPopupZoom(el.name, el.link));
 
   return cardContent;
 }
@@ -64,6 +64,14 @@ function likeCard(e) {
 function removeCard(e) {
   e.target.parentElement.remove();
 }
+
+function openPopupZoom(name, link) {
+  popupImg.src = link;
+  popupImg.alt = name;
+  popupImgTitle.textContent = name;
+
+  openPopup(popupZoom);
+};
 
 // открыть попап
 function openPopup(popup) {
