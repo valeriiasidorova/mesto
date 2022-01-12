@@ -43,6 +43,7 @@ function createCard(el) {
 
   btnLikeCard.addEventListener('click', likeCard);
   btnRemoveCard.addEventListener('click', removeCard);
+  // попап 3
   cardImage.addEventListener('click', () => openPopupZoom(el.name, el.link));
 
   return cardContent;
@@ -50,11 +51,6 @@ function createCard(el) {
 
 function addCard(el) {
   cards.prepend(createCard(el));
-}
-
-function autofillProfileInputs() {
-  inputProfileName.value = profileName.textContent;
-  inputProfileBio.value = profileBio.textContent;
 }
 
 function likeCard(e) {
@@ -65,6 +61,27 @@ function removeCard(e) {
   e.target.parentElement.remove();
 }
 
+// открыть попап – вызывается в отдельных функциях открытия попапов
+function openPopup(popup) {
+  popup.classList.add('popup_is-open');
+}
+
+// закрыть попап
+function closePopup(popup) {
+  popup.classList.remove('popup_is-open');
+}
+
+// автозаполнение для попапа 1, используется при его открытии
+function autofillProfileInputs() {
+  inputProfileName.value = profileName.textContent;
+  inputProfileBio.value = profileBio.textContent;
+}
+
+function openPopupProfile(popup) {
+  autofillProfileInputs();
+  openPopup(popup);
+}
+
 function openPopupZoom(name, link) {
   popupImg.src = link;
   popupImg.alt = name;
@@ -72,17 +89,6 @@ function openPopupZoom(name, link) {
 
   openPopup(popupZoom);
 };
-
-// открыть попап
-function openPopup(popup) {
-  popup.classList.add('popup_is-open');
-  autofillProfileInputs();
-}
-
-// закрыть попап
-function closePopup(popup) {
-  popup.classList.remove('popup_is-open');
-}
 
 /*
 function popupClickHandler(event) {
@@ -115,7 +121,7 @@ function submitFormPlace(e) {
 
 // ---------- Слушатели ----------
 // попап 1
-btnEditProfile.addEventListener('click', () => openPopup(popupProfile)); // открыть попап
+btnEditProfile.addEventListener('click', () => openPopupProfile(popupProfile)); // открыть попап
 btnClosePopupProfile.addEventListener('click', () => closePopup(popupProfile)); // закрыть попап
 formPopupProfile.addEventListener('submit', submitFormProfile); // отправить форму, обновить инфу в профиле и закрыть попап
 
