@@ -22,6 +22,13 @@ const formPopupPlace = popupPlace.querySelector('.popup__form_place');
 const inputPlaceName = popupPlace.querySelector('.popup__input_type_place-name');
 const inputPlaceLink = popupPlace.querySelector('.popup__input_type_place-link');
 
+// элементы попапа 3 (увеличить карточку)
+/*const popupZoom = document.querySelector('.popup_type_image');
+const popupImg = popupZoom.querySelector('.popup__img');
+const popupImgTitle = popupZoom.querySelector('.popup__img-title');
+const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
+*/
+
 initialCards.forEach(addCard);
 
 function createCard(el) {
