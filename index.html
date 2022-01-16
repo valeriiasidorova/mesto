@@ -58,12 +58,16 @@
             type="text"
             name="input-profile-name"
             required
+            minlength="2"
+            maxlength="40"
           />
           <input
             class="popup__input popup__input_type_profile-bio"
             type="text"
             name="input-profile-bio"
             required
+            minlength="2"
+            maxlength="200"
           />
           <button
             class="button popup__save-button"
@@ -91,6 +95,8 @@
             name="input-place-name"
             placeholder="Название"
             required
+            minlength="2"
+            maxlength="30"
           />
           <input
             class="popup__input popup__input_type_place-link"
