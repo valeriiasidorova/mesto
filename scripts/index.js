@@ -28,8 +28,6 @@ const popupImg = popupZoom.querySelector('.popup__img');
 const popupImgTitle = popupZoom.querySelector('.popup__img-title');
 const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
 
-initialCards.forEach(addCard);
-
 function createCard(el) {
   const cardContent = template.cloneNode(true);
   const cardImage = cardContent.querySelector('.card__image');
@@ -134,3 +132,5 @@ formPopupPlace.addEventListener('submit', submitFormPlace); // отправит�
 
 // попап 3
 btnClosePopupZoom.addEventListener('click', () => closePopup(popupZoom));
+
+initialCards.forEach(addCard);
