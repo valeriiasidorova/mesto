@@ -72,9 +72,7 @@ function closePopup(popup) {
   // и по клику на оверлей?
 }
 
-// 1 найти в DOM все попапы +
-// 2 написать функцию для закрытия по клику на оверлей +
-// 3 повесить слушатель на каждый попап с помощью перебора +
+// закрыть попап по клику за его пределами
 function closePopupByOverlayClick(e) {
   if (e.target.classList.contains('popup')) {
     const popupOpened = document.querySelector('.popup_is-open');
@@ -88,12 +86,23 @@ function autofillProfileInputs() {
   inputProfileBio.value = profileBio.textContent;
 }
 
-// добавить сброс инпутов при открытии попапа 2
+// сброс инпутов для попапа 2, используется при его открытии
+function clearPlaceInputs() {
+  inputPlaceName.value = '';
+  inputPlaceLink.value = '';
+}
 
 function openPopupProfile(popup) {
   autofillProfileInputs();
   openPopup(popup);
 }
+
+/*
+function openPopupPlace(popup) {
+  clearPlaceInputs();
+  openPopup(popup);
+}
+*/
 
 function openPopupZoom(name, link) {
   popupImg.src = link;
@@ -132,6 +141,7 @@ formPopupProfile.addEventListener('submit', submitFormProfile); // отправ�
 
 // попап 2
 btnAddCard.addEventListener('click', () => openPopup(popupPlace)); // открыть попап
+// btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace));
 btnClosePopupPlace.addEventListener('click', () => closePopup(popupPlace)); // закрыть попап
 formPopupPlace.addEventListener('submit', submitFormPlace); // отправить форму, добавить карточку и закрыть попап
 
