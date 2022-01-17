@@ -97,12 +97,10 @@ function openPopupProfile(popup) {
   openPopup(popup);
 }
 
-/*
 function openPopupPlace(popup) {
   clearPlaceInputs();
   openPopup(popup);
 }
-*/
 
 function openPopupZoom(name, link) {
   popupImg.src = link;
@@ -140,8 +138,7 @@ btnClosePopupProfile.addEventListener('click', () => closePopup(popupProfile)); 
 formPopupProfile.addEventListener('submit', submitFormProfile); // отправить форму, обновить инфу в профиле и закрыть попап
 
 // попап 2
-btnAddCard.addEventListener('click', () => openPopup(popupPlace)); // открыть попап
-// btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace));
+btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace)); // открыть попап
 btnClosePopupPlace.addEventListener('click', () => closePopup(popupPlace)); // закрыть попап
 formPopupPlace.addEventListener('submit', submitFormPlace); // отправить форму, добавить карточку и закрыть попап
 
