@@ -1,4 +1,5 @@
-const popup = document.querySelector('.popup');
+// коллекция попапов для работы с оверлеем
+const popups = Array.from(document.querySelectorAll('.popup'));
 
 // элементы для работы с темплейтом
 const template = document.querySelector('.template').content;
@@ -67,6 +68,18 @@ function openPopup(popup) {
 // закрыть попап
 function closePopup(popup) {
   popup.classList.remove('popup_is-open');
+  // снять слушатель для закрытия по Esc
+  // и по клику на оверлей?
+}
+
+// 1 найти в DOM все попапы +
+// 2 написать функцию для закрытия по клику на оверлей +
+// 3 повесить слушатель на каждый попап с помощью перебора +
+function closePopupByOverlayClick(e) {
+  if (e.target.classList.contains('popup')) {
+    const popupOpened = document.querySelector('.popup_is-open');
+    closePopup(popupOpened);
+  }
 }
 
 // автозаполнение для попапа 1, используется при его открытии
@@ -74,6 +87,8 @@ function autofillProfileInputs() {
   inputProfileName.value = profileName.textContent;
   inputProfileBio.value = profileBio.textContent;
 }
+
+// добавить сброс инпутов при открытии попапа 2
 
 function openPopupProfile(popup) {
   autofillProfileInputs();
@@ -88,18 +103,12 @@ function openPopupZoom(name, link) {
   openPopup(popupZoom);
 };
 
-function closePopupByOverlayClick(e) {
-  if (e.target.classList.contains('popup')) {
-    closePopup();
-  }
-}
-
 function submitFormProfile(e) {
   e.preventDefault();
 
   profileName.textContent = inputProfileName.value;
   profileBio.textContent = inputProfileBio.value;
-  closePopup(popup);
+  closePopup(popupProfile);
 }
 
 function submitFormPlace(e) {
@@ -121,8 +130,6 @@ btnEditProfile.addEventListener('click', () => openPopupProfile(popupProfile)); 
 btnClosePopupProfile.addEventListener('click', () => closePopup(popupProfile)); // закрыть попап
 formPopupProfile.addEventListener('submit', submitFormProfile); // отправить форму, обновить инфу в профиле и закрыть попап
 
-// popup.addEventListener('click', popupClickHandler); // закрыть попап по клику за его пределами
-
 // попап 2
 btnAddCard.addEventListener('click', () => openPopup(popupPlace)); // открыть попап
 btnClosePopupPlace.addEventListener('click', () => closePopup(popupPlace)); // закрыть попап
@@ -130,5 +137,8 @@ formPopupPlace.addEventListener('submit', submitFormPlace); // отправит�
 
 // попап 3
 btnClosePopupZoom.addEventListener('click', () => closePopup(popupZoom));
+
+// закрытие по клику за пределами попапа
+popups.forEach((popup) => popup.addEventListener('click', closePopupByOverlayClick));
 
 initialCards.forEach(addCard);
