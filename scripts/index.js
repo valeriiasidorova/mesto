@@ -88,13 +88,11 @@ function openPopupZoom(name, link) {
   openPopup(popupZoom);
 };
 
-/*
-function popupClickHandler(event) {
-  if (event.target.classList.contains('popup')) {
+function closePopupByOverlayClick(e) {
+  if (e.target.classList.contains('popup')) {
     closePopup();
   }
 }
-*/
 
 function submitFormProfile(e) {
   e.preventDefault();
