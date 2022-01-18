@@ -63,13 +63,13 @@ function removeCard(e) {
 // открыть попап – вызывается в отдельных функциях открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_is-open');
+  document.addEventListener('keydown', closePopupByEsc);
 }
 
 // закрыть попап
 function closePopup(popup) {
   popup.classList.remove('popup_is-open');
-  // снять слушатель для закрытия по Esc
-  // и по клику на оверлей?
+  document.removeEventListener('keydown', closePopupByEsc);
 }
 
 // закрыть попап по клику за его пределами
@@ -77,6 +77,17 @@ function closePopupByOverlayClick(e) {
   if (e.target.classList.contains('popup')) {
     const popupOpened = document.querySelector('.popup_is-open');
     closePopup(popupOpened);
+  }
+}
+
+// закрыть попап по нажатию на Esc
+function closePopupByEsc(e) {
+  if (e.key === 'Escape') {
+    popups.forEach((popup) => {
+      if (popup.classList.contains('popup_is-open')) {
+        closePopup(popup);
+      }
+    });
   }
 }
 
