@@ -60,11 +60,48 @@ function removeCard(evt) {
   evt.target.parentElement.remove();
 }
 
+// автозаполнение для попапа 1, используется при его открытии
+function autofillProfileInputs() {
+  inputProfileName.value = profileName.textContent;
+  inputProfileBio.value = profileBio.textContent;
+}
+
+// сброс инпутов для попапа 2, используется при его открытии
+function clearPlaceInputs() {
+  inputPlaceName.value = '';
+  inputPlaceLink.value = '';
+}
+
 // открыть попап – вызывается в отдельных функциях открытия попапов
 function openPopup(popup) {
   popup.classList.add('popup_is-open');
   document.addEventListener('keydown', closePopupByEsc);
 }
+
+// для попапов с формой (1, 2) – открыть и задать состояние кнопки submit в зависимости от валидности
+function openFormPopup(popup) {
+  const form = popup.querySelector(formConfig.formSelector);
+  setSubmitButtonState(form, formConfig);
+  openPopup(popup);
+}
+
+function openPopupProfile(popup) {
+  autofillProfileInputs();
+  openFormPopup(popup);
+}
+
+function openPopupPlace(popup) {
+  clearPlaceInputs();
+  openFormPopup(popup);
+}
+
+function openPopupZoom(name, link) {
+  popupImg.src = link;
+  popupImg.alt = name;
+  popupImgTitle.textContent = name;
+
+  openPopup(popupZoom);
+};
 
 // закрыть попап
 function closePopup(popup) {
@@ -98,36 +135,6 @@ function closePopupByEsc(evt) {
     });
   }
 }
-
-// автозаполнение для попапа 1, используется при его открытии
-function autofillProfileInputs() {
-  inputProfileName.value = profileName.textContent;
-  inputProfileBio.value = profileBio.textContent;
-}
-
-// сброс инпутов для попапа 2, используется при его открытии
-function clearPlaceInputs() {
-  inputPlaceName.value = '';
-  inputPlaceLink.value = '';
-}
-
-function openPopupProfile(popup) {
-  autofillProfileInputs();
-  openPopup(popup);
-}
-
-function openPopupPlace(popup) {
-  clearPlaceInputs();
-  openPopup(popup);
-}
-
-function openPopupZoom(name, link) {
-  popupImg.src = link;
-  popupImg.alt = name;
-  popupImgTitle.textContent = name;
-
-  openPopup(popupZoom);
-};
 
 function submitFormProfile(evt) {
   evt.preventDefault();
