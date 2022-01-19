@@ -52,12 +52,12 @@ function addCard(el) {
   cards.prepend(createCard(el));
 }
 
-function likeCard(e) {
-  e.target.classList.toggle('card__like-button_active');
+function likeCard(evt) {
+  evt.target.classList.toggle('card__like-button_active');
 }
 
-function removeCard(e) {
-  e.target.parentElement.remove();
+function removeCard(evt) {
+  evt.target.parentElement.remove();
 }
 
 // открыть попап – вызывается в отдельных функциях открытия попапов
@@ -73,16 +73,16 @@ function closePopup(popup) {
 }
 
 // закрыть попап по клику за его пределами
-function closePopupByOverlayClick(e) {
-  if (e.target.classList.contains('popup')) {
+function closePopupByOverlayClick(evt) {
+  if (evt.target.classList.contains('popup')) {
     const popupOpened = document.querySelector('.popup_is-open');
     closePopup(popupOpened);
   }
 }
 
 // закрыть попап по нажатию на Esc
-function closePopupByEsc(e) {
-  if (e.key === 'Escape') {
+function closePopupByEsc(evt) {
+  if (evt.key === 'Escape') {
     popups.forEach((popup) => {
       if (popup.classList.contains('popup_is-open')) {
         closePopup(popup);
@@ -121,16 +121,16 @@ function openPopupZoom(name, link) {
   openPopup(popupZoom);
 };
 
-function submitFormProfile(e) {
-  e.preventDefault();
+function submitFormProfile(evt) {
+  evt.preventDefault();
 
   profileName.textContent = inputProfileName.value;
   profileBio.textContent = inputProfileBio.value;
   closePopup(popupProfile);
 }
 
-function submitFormPlace(e) {
-  e.preventDefault();
+function submitFormPlace(evt) {
+  evt.preventDefault();
 
   const newCard = {
       name: inputPlaceName.value,

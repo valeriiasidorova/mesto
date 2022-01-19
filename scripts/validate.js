@@ -32,8 +32,8 @@ function setSubmitButtonState(form, config) {
   submitButton.classList.toggle(config.submitButtonErrorClass, !form.checkValidity());
 }
 
-function preventDefaultSubmit(e) {
-  e.preventDefault();
+function preventDefaultSubmit(evt) {
+  evt.preventDefault();
 }
 
 function checkInputValidity(input, form, config) {
