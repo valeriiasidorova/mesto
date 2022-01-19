@@ -21,8 +21,6 @@ function setFormListeners(form, config) {
 
   form.addEventListener('submit', preventDefaultSubmit);
   form.addEventListener('input', () => setSubmitButtonState(form, config));
-
-  setSubmitButtonState(form, config); // так лучше не делать. а как?
 }
 
 function setSubmitButtonState(form, config) {
