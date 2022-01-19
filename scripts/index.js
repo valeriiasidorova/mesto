@@ -1,4 +1,5 @@
-const popup = document.querySelector('.popup');
+// коллекция попапов для работы с оверлеем
+const popups = Array.from(document.querySelectorAll('.popup'));
 
 // элементы для работы с темплейтом
 const template = document.querySelector('.template').content;
@@ -51,22 +52,12 @@ function addCard(el) {
   cards.prepend(createCard(el));
 }
 
-function likeCard(e) {
-  e.target.classList.toggle('card__like-button_active');
+function likeCard(evt) {
+  evt.target.classList.toggle('card__like-button_active');
 }
 
-function removeCard(e) {
-  e.target.parentElement.remove();
-}
-
-// открыть попап – вызывается в отдельных функциях открытия попапов
-function openPopup(popup) {
-  popup.classList.add('popup_is-open');
-}
-
-// закрыть попап
-function closePopup(popup) {
-  popup.classList.remove('popup_is-open');
+function removeCard(evt) {
+  evt.target.parentElement.remove();
 }
 
 // автозаполнение для попапа 1, используется при его открытии
@@ -75,9 +66,33 @@ function autofillProfileInputs() {
   inputProfileBio.value = profileBio.textContent;
 }
 
+// сброс инпутов для попапа 2, используется при его открытии
+function clearPlaceInputs() {
+  inputPlaceName.value = '';
+  inputPlaceLink.value = '';
+}
+
+// открыть попап – вызывается в отдельных функциях открытия попапов
+function openPopup(popup) {
+  popup.classList.add('popup_is-open');
+  document.addEventListener('keydown', closePopupByEsc);
+}
+
+// для попапов с формой (1, 2) – открыть и задать состояние кнопки submit в зависимости от валидности
+function openFormPopup(popup) {
+  const form = popup.querySelector(formConfig.formSelector);
+  setSubmitButtonState(form, formConfig);
+  openPopup(popup);
+}
+
 function openPopupProfile(popup) {
   autofillProfileInputs();
-  openPopup(popup);
+  openFormPopup(popup);
+}
+
+function openPopupPlace(popup) {
+  clearPlaceInputs();
+  openFormPopup(popup);
 }
 
 function openPopupZoom(name, link) {
@@ -88,24 +103,49 @@ function openPopupZoom(name, link) {
   openPopup(popupZoom);
 };
 
-/*
-function popupClickHandler(event) {
-  if (event.target.classList.contains('popup')) {
-    closePopup();
+// закрыть попап
+function closePopup(popup) {
+  // убрать ошибку с форм при закрытии попапа
+  if (popup.querySelector(formConfig.formSelector)) {
+    const form = popup.querySelector(formConfig.formSelector);
+    const inputs = Array.from(form.querySelectorAll(formConfig.inputSelector));
+
+    inputs.forEach((input) => hideInputError(input, form, formConfig));
+  }
+
+  popup.classList.remove('popup_is-open');
+  document.removeEventListener('keydown', closePopupByEsc);
+}
+
+// закрыть попап по клику за его пределами
+function closePopupByOverlayClick(evt) {
+  if (evt.target.classList.contains('popup')) {
+    const popupOpened = document.querySelector('.popup_is-open');
+    closePopup(popupOpened);
   }
 }
-*/
 
-function submitFormProfile(e) {
-  e.preventDefault();
+// закрыть попап по нажатию на Esc
+function closePopupByEsc(evt) {
+  if (evt.key === 'Escape') {
+    popups.forEach((popup) => {
+      if (popup.classList.contains('popup_is-open')) {
+        closePopup(popup);
+      }
+    });
+  }
+}
+
+function submitFormProfile(evt) {
+  evt.preventDefault();
 
   profileName.textContent = inputProfileName.value;
   profileBio.textContent = inputProfileBio.value;
-  closePopup(popup);
+  closePopup(popupProfile);
 }
 
-function submitFormPlace(e) {
-  e.preventDefault();
+function submitFormPlace(evt) {
+  evt.preventDefault();
 
   const newCard = {
       name: inputPlaceName.value,
@@ -123,14 +163,15 @@ btnEditProfile.addEventListener('click', () => openPopupProfile(popupProfile)); 
 btnClosePopupProfile.addEventListener('click', () => closePopup(popupProfile)); // закрыть попап
 formPopupProfile.addEventListener('submit', submitFormProfile); // отправить форму, обновить инфу в профиле и закрыть попап
 
-// popup.addEventListener('click', popupClickHandler); // закрыть попап по клику за его пределами
-
 // попап 2
-btnAddCard.addEventListener('click', () => openPopup(popupPlace)); // открыть попап
+btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace)); // открыть попап
 btnClosePopupPlace.addEventListener('click', () => closePopup(popupPlace)); // закрыть попап
 formPopupPlace.addEventListener('submit', submitFormPlace); // отправить форму, добавить карточку и закрыть попап
 
 // попап 3
 btnClosePopupZoom.addEventListener('click', () => closePopup(popupZoom));
+
+// закрытие по клику за пределами попапа
+popups.forEach((popup) => popup.addEventListener('click', closePopupByOverlayClick));
 
 initialCards.forEach(addCard);
