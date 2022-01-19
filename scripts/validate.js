@@ -16,13 +16,13 @@ function setFormListeners(form, config) {
   const inputs = Array.from(form.querySelectorAll(config.inputSelector));
   inputs.forEach((inputElement) => {
     inputElement.addEventListener('input', () =>
-      handleFieldValidation(inputElement, form, config));
+      checkInputValidity(inputElement, form, config));
     });
 
   form.addEventListener('submit', preventDefaultSubmit);
   form.addEventListener('input', () => setSubmitButtonState(form, config));
 
-  setSubmitButtonState(form, config);
+  setSubmitButtonState(form, config); // так лучше не делать. а как?
 }
 
 function setSubmitButtonState(form, config) {
@@ -36,7 +36,7 @@ function preventDefaultSubmit(e) {
   e.preventDefault();
 }
 
-function handleFieldValidation(input, form, config) {
+function checkInputValidity(input, form, config) {
   if (!input.validity.valid) {
     showInputError(input, form, config);
   } else {
@@ -48,14 +48,13 @@ function showInputError(input, form, config) {
   const errorElement = form.querySelector(`#${input.id}-error`);
 
   input.classList.add(config.inputErrorClass);
-
   errorElement.textContent = input.validationMessage;
 }
 
 function hideInputError(input, form, config) {
   const errorElement = form.querySelector(`#${input.id}-error`);
-  input.classList.remove(config.inputErrorClass);
 
+  input.classList.remove(config.inputErrorClass);
   errorElement.textContent = '';
 }
 
