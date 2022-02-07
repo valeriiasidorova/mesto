@@ -1,3 +1,6 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 // коллекция попапов для работы с оверлеем
 const popups = Array.from(document.querySelectorAll('.popup'));
 
