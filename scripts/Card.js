@@ -26,6 +26,16 @@ class Card {
   _removeCard() {
     this._element.remove();
   }
+
+  _setEventListeners() {
+    this._element
+      .querySelector('.card__like-button')
+      .addEventListener('click', () => this._likeCard());
+
+    this._element
+      .querySelector('.card__remove-button')
+      .addEventListener('click', () => this._removeCard());
+  }
 }
 
 export default Card;
