@@ -37,14 +37,16 @@ function createCard(el) {
   const cardContent = template.cloneNode(true);
   const cardImage = cardContent.querySelector('.card__image');
   const cardTitle = cardContent.querySelector('.card__title');
-  const btnLikeCard = cardContent.querySelector('.card__like-button');
+  // перенесли в Card.js
+  // const btnLikeCard = cardContent.querySelector('.card__like-button');
   const btnRemoveCard = cardContent.querySelector('.card__remove-button');
 
   cardImage.src = el.link;
   cardImage.alt = el.name;
   cardTitle.textContent = el.name;
 
-  btnLikeCard.addEventListener('click', likeCard);
+  // перенесли в Card.js
+  // btnLikeCard.addEventListener('click', likeCard);
   btnRemoveCard.addEventListener('click', removeCard);
   // попап 3
   cardImage.addEventListener('click', () => openPopupZoom(el.name, el.link));
@@ -56,9 +58,10 @@ function addCard(el) {
   cards.prepend(createCard(el));
 }
 
-function likeCard(evt) {
-  evt.target.classList.toggle('card__like-button_active');
-}
+// перенесли в Card.js
+// function likeCard(evt) {
+//  evt.target.classList.toggle('card__like-button_active');
+// }
 
 function removeCard(evt) {
   evt.target.parentElement.remove();
