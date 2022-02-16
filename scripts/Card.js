@@ -22,6 +22,10 @@ class Card {
       .classList
       .toggle('card__like-button_active');
   }
+
+  _removeCard() {
+    this._element.remove();
+  }
 }
 
 export default Card;

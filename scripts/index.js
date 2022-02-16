@@ -39,7 +39,7 @@ function createCard(el) {
   const cardTitle = cardContent.querySelector('.card__title');
   // перенесли в Card.js
   // const btnLikeCard = cardContent.querySelector('.card__like-button');
-  const btnRemoveCard = cardContent.querySelector('.card__remove-button');
+  // const btnRemoveCard = cardContent.querySelector('.card__remove-button');
 
   cardImage.src = el.link;
   cardImage.alt = el.name;
@@ -47,7 +47,7 @@ function createCard(el) {
 
   // перенесли в Card.js
   // btnLikeCard.addEventListener('click', likeCard);
-  btnRemoveCard.addEventListener('click', removeCard);
+  // btnRemoveCard.addEventListener('click', removeCard);
   // попап 3
   cardImage.addEventListener('click', () => openPopupZoom(el.name, el.link));
 
@@ -63,9 +63,10 @@ function addCard(el) {
 //  evt.target.classList.toggle('card__like-button_active');
 // }
 
-function removeCard(evt) {
-  evt.target.parentElement.remove();
-}
+// перенесли в Card.js
+// function removeCard(evt) {
+//  evt.target.parentElement.remove();
+// }
 
 // автозаполнение для попапа 1, используется при его открытии
 function autofillProfileInputs() {
