@@ -34,13 +34,6 @@ function checkInputValidity(input, form, config) {
   }
 }
 
-function showInputError(input, form, config) {
-  const errorElement = form.querySelector(`#${input.id}-error`);
-
-  input.classList.add(config.inputErrorClass);
-  errorElement.textContent = input.validationMessage;
-}
-
 function hideInputError(input, form, config) {
   const errorElement = form.querySelector(`#${input.id}-error`);
 

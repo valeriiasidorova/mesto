@@ -8,6 +8,13 @@ class FormValidator {
       .parentElement
       .querySelector(this._config.closeButtonSelector);
   }
+
+  _showInputError(input) {
+    const errorElement = this._form.querySelector(`#${input.id}-error`);
+
+    input.classList.add(this._config.inputErrorClass);
+    errorElement.textContent = input.validationMessage;
+  }
 }
 
 export default FormValidator;
