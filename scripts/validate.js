@@ -26,12 +26,4 @@ function preventDefaultSubmit(evt) {
   evt.preventDefault();
 }
 
-function checkInputValidity(input, form, config) {
-  if (!input.validity.valid) {
-    showInputError(input, form, config);
-  } else {
-    hideInputError(input, form, config);
-  }
-}
-
 enableValidation(formConfig);
