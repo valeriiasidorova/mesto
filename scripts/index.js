@@ -1,8 +1,12 @@
+import initialCards from './initialCards.js';
+import formConfig from './formConfig.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 // коллекция попапов для работы с оверлеем
 const popups = Array.from(document.querySelectorAll('.popup'));
 
 // элементы для работы с темплейтом
-const template = document.querySelector('.template').content;
 const cards = document.querySelector('.cards');
 
 // элементы попапа 1 (ред. профиль)
@@ -14,6 +18,7 @@ const inputProfileName = popupProfile.querySelector('.popup__input_type_profile-
 const profileName = document.querySelector('.profile__name');
 const inputProfileBio = popupProfile.querySelector('.popup__input_type_profile-bio');
 const profileBio = document.querySelector('.profile__bio');
+const formValidatorPopupProfile = new FormValidator(formConfig, formPopupProfile);
 
 // элементы попапа 2 (доб. карточку)
 const popupPlace = document.querySelector('.popup_type_place');
@@ -22,6 +27,7 @@ const btnClosePopupPlace = popupPlace.querySelector('.popup__close-button_place'
 const formPopupPlace = popupPlace.querySelector('.popup__form_place');
 const inputPlaceName = popupPlace.querySelector('.popup__input_type_place-name');
 const inputPlaceLink = popupPlace.querySelector('.popup__input_type_place-link');
+const formValidatorPopupPlace = new FormValidator(formConfig, formPopupPlace);
 
 // элементы попапа 3 (увеличить карточку)
 const popupZoom = document.querySelector('.popup_type_image');
@@ -29,35 +35,15 @@ const popupImg = popupZoom.querySelector('.popup__img');
 const popupImgTitle = popupZoom.querySelector('.popup__img-title');
 const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
 
-function createCard(el) {
-  const cardContent = template.cloneNode(true);
-  const cardImage = cardContent.querySelector('.card__image');
-  const cardTitle = cardContent.querySelector('.card__title');
-  const btnLikeCard = cardContent.querySelector('.card__like-button');
-  const btnRemoveCard = cardContent.querySelector('.card__remove-button');
+formValidatorPopupProfile.enableValidation();
+formValidatorPopupPlace.enableValidation();
 
-  cardImage.src = el.link;
-  cardImage.alt = el.name;
-  cardTitle.textContent = el.name;
+// создать экземпляр класса карточки, вызвать при отправке формы попапа 2
+function addCard(name, link) {
+  const card = new Card(name, link, '.template', openPopupZoom);
+  const cardElement = card.createCard();
 
-  btnLikeCard.addEventListener('click', likeCard);
-  btnRemoveCard.addEventListener('click', removeCard);
-  // попап 3
-  cardImage.addEventListener('click', () => openPopupZoom(el.name, el.link));
-
-  return cardContent;
-}
-
-function addCard(el) {
-  cards.prepend(createCard(el));
-}
-
-function likeCard(evt) {
-  evt.target.classList.toggle('card__like-button_active');
-}
-
-function removeCard(evt) {
-  evt.target.parentElement.remove();
+  cards.prepend(cardElement);
 }
 
 // автозаполнение для попапа 1, используется при его открытии
@@ -79,20 +65,19 @@ function openPopup(popup) {
 }
 
 // для попапов с формой (1, 2) – открыть и задать состояние кнопки submit в зависимости от валидности
-function openFormPopup(popup) {
-  const form = popup.querySelector(formConfig.formSelector);
-  setSubmitButtonState(form, formConfig);
+function openFormPopup(popup, formValidator) {
+  formValidator.setSubmitButtonState();
   openPopup(popup);
 }
 
-function openPopupProfile(popup) {
+function openPopupProfile(popup, formValidator) {
   autofillProfileInputs();
-  openFormPopup(popup);
+  openFormPopup(popup, formValidator);
 }
 
-function openPopupPlace(popup) {
+function openPopupPlace(popup, formValidator) {
   clearPlaceInputs();
-  openFormPopup(popup);
+  openFormPopup(popup, formValidator);
 }
 
 function openPopupZoom(name, link) {
@@ -105,17 +90,12 @@ function openPopupZoom(name, link) {
 
 // закрыть попап
 function closePopup(popup) {
-  // убрать ошибку с форм при закрытии попапа
-  if (popup.querySelector(formConfig.formSelector)) {
-    const form = popup.querySelector(formConfig.formSelector);
-    const inputs = Array.from(form.querySelectorAll(formConfig.inputSelector));
-
-    inputs.forEach((input) => hideInputError(input, form, formConfig));
-  }
-
   popup.classList.remove('popup_is-open');
   document.removeEventListener('keydown', closePopupByEsc);
 }
+
+// ф: закрыть попап с формой
+// перебор инпутов и сбросить ошибки (resetInputErrors)
 
 // закрыть попап по клику за его пределами
 function closePopupByOverlayClick(evt) {
@@ -147,24 +127,19 @@ function submitFormProfile(evt) {
 function submitFormPlace(evt) {
   evt.preventDefault();
 
-  const newCard = {
-      name: inputPlaceName.value,
-      link: inputPlaceLink.value
-  }
-
-  addCard(newCard);
+  addCard(inputPlaceName.value, inputPlaceLink.value);
   closePopup(popupPlace);
   formPopupPlace.reset();
 };
 
 // ---------- Слушатели ----------
 // попап 1
-btnEditProfile.addEventListener('click', () => openPopupProfile(popupProfile)); // открыть попап
+btnEditProfile.addEventListener('click', () => openPopupProfile(popupProfile, formValidatorPopupProfile)); // открыть попап
 btnClosePopupProfile.addEventListener('click', () => closePopup(popupProfile)); // закрыть попап
 formPopupProfile.addEventListener('submit', submitFormProfile); // отправить форму, обновить инфу в профиле и закрыть попап
 
 // попап 2
-btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace)); // открыть попап
+btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace, formValidatorPopupPlace)); // открыть попап
 btnClosePopupPlace.addEventListener('click', () => closePopup(popupPlace)); // закрыть попап
 formPopupPlace.addEventListener('submit', submitFormPlace); // отправить форму, добавить карточку и закрыть попап
 
@@ -174,4 +149,6 @@ btnClosePopupZoom.addEventListener('click', () => closePopup(popupZoom));
 // закрытие по клику за пределами попапа
 popups.forEach((popup) => popup.addEventListener('click', closePopupByOverlayClick));
 
-initialCards.forEach(addCard);
+initialCards.forEach((el) => {
+  addCard(el.name, el.link);
+});
