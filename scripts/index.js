@@ -18,6 +18,7 @@ const inputProfileName = popupProfile.querySelector('.popup__input_type_profile-
 const profileName = document.querySelector('.profile__name');
 const inputProfileBio = popupProfile.querySelector('.popup__input_type_profile-bio');
 const profileBio = document.querySelector('.profile__bio');
+const formValidatorPopupProfile = new FormValidator(formConfig, formPopupProfile);
 
 // элементы попапа 2 (доб. карточку)
 const popupPlace = document.querySelector('.popup_type_place');
@@ -26,12 +27,16 @@ const btnClosePopupPlace = popupPlace.querySelector('.popup__close-button_place'
 const formPopupPlace = popupPlace.querySelector('.popup__form_place');
 const inputPlaceName = popupPlace.querySelector('.popup__input_type_place-name');
 const inputPlaceLink = popupPlace.querySelector('.popup__input_type_place-link');
+const formValidatorPopupPlace = new FormValidator(formConfig, formPopupPlace);
 
 // элементы попапа 3 (увеличить карточку)
 const popupZoom = document.querySelector('.popup_type_image');
 const popupImg = popupZoom.querySelector('.popup__img');
 const popupImgTitle = popupZoom.querySelector('.popup__img-title');
 const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
+
+formValidatorPopupProfile.enableValidation();
+formValidatorPopupPlace.enableValidation();
 
 // создать экземпляр класса карточки, вызвать при отправке формы попапа 2
 function addCard(name, link) {
@@ -60,20 +65,19 @@ function openPopup(popup) {
 }
 
 // для попапов с формой (1, 2) – открыть и задать состояние кнопки submit в зависимости от валидности
-function openFormPopup(popup) {
-  const form = popup.querySelector(formConfig.formSelector);
-  setSubmitButtonState(form, formConfig);
+function openFormPopup(popup, formValidator) {
+  formValidator.setSubmitButtonState();
   openPopup(popup);
 }
 
-function openPopupProfile(popup) {
+function openPopupProfile(popup, formValidator) {
   autofillProfileInputs();
-  openFormPopup(popup);
+  openFormPopup(popup, formValidator);
 }
 
-function openPopupPlace(popup) {
+function openPopupPlace(popup, formValidator) {
   clearPlaceInputs();
-  openFormPopup(popup);
+  openFormPopup(popup, formValidator);
 }
 
 function openPopupZoom(name, link) {
@@ -89,6 +93,9 @@ function closePopup(popup) {
   popup.classList.remove('popup_is-open');
   document.removeEventListener('keydown', closePopupByEsc);
 }
+
+// ф: закрыть попап с формой
+// перебор инпутов и сбросить ошибки (resetInputErrors)
 
 // закрыть попап по клику за его пределами
 function closePopupByOverlayClick(evt) {
@@ -127,12 +134,12 @@ function submitFormPlace(evt) {
 
 // ---------- Слушатели ----------
 // попап 1
-btnEditProfile.addEventListener('click', () => openPopupProfile(popupProfile)); // открыть попап
+btnEditProfile.addEventListener('click', () => openPopupProfile(popupProfile, formValidatorPopupProfile)); // открыть попап
 btnClosePopupProfile.addEventListener('click', () => closePopup(popupProfile)); // закрыть попап
 formPopupProfile.addEventListener('submit', submitFormProfile); // отправить форму, обновить инфу в профиле и закрыть попап
 
 // попап 2
-btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace)); // открыть попап
+btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace, formValidatorPopupPlace)); // открыть попап
 btnClosePopupPlace.addEventListener('click', () => closePopup(popupPlace)); // закрыть попап
 formPopupPlace.addEventListener('submit', submitFormPlace); // отправить форму, добавить карточку и закрыть попап
 

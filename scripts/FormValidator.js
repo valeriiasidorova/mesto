@@ -56,6 +56,10 @@ class FormValidator {
       this._inputs.forEach((input) => this._hideInputError(input));
     });
   }
+
+  enableValidation() {
+    this._setFormListeners();
+  }
 }
 
 export default FormValidator;
