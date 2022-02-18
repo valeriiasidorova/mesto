@@ -15,11 +15,4 @@ function setFormListeners(form, config) {
   form.addEventListener('input', () => setSubmitButtonState(form, config));
 }
 
-function setSubmitButtonState(form, config) {
-  const submitButton = form.querySelector(config.submitButtonSelector);
-
-  submitButton.disabled = !form.checkValidity();
-  submitButton.classList.toggle(config.submitButtonErrorClass, !form.checkValidity());
-}
-
 enableValidation(formConfig);

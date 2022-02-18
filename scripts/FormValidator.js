@@ -7,6 +7,8 @@ class FormValidator {
     this._closeButton = this._form
       .parentElement
       .querySelector(this._config.closeButtonSelector);
+    this._submitButton = this._form
+      .querySelector(this._config.submitButtonSelector);
   }
 
   _showInputError(input) {
@@ -35,6 +37,11 @@ class FormValidator {
 
   _preventDefaultSubmit(evt) {
     evt.preventDefault();
+  }
+
+  setSubmitButtonState() {
+    this._submitButton.disabled = !this._form.checkValidity();
+    this._submitButton.classList.toggle(this._config.submitButtonErrorClass, !this._form.checkValidity());
   }
 }
 
