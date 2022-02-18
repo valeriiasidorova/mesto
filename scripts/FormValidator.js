@@ -32,6 +32,10 @@ class FormValidator {
       }
     });
   }
+
+  _preventDefaultSubmit(evt) {
+    evt.preventDefault();
+  }
 }
 
 export default FormValidator;
