@@ -6,7 +6,6 @@ import FormValidator from './FormValidator.js';
 const popups = Array.from(document.querySelectorAll('.popup'));
 
 // элементы для работы с темплейтом
-const template = document.querySelector('.template').content;
 const cards = document.querySelector('.cards');
 
 // элементы попапа 1 (ред. профиль)
@@ -33,40 +32,13 @@ const popupImg = popupZoom.querySelector('.popup__img');
 const popupImgTitle = popupZoom.querySelector('.popup__img-title');
 const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
 
-function createCard(el) {
-  const cardContent = template.cloneNode(true);
-  const cardImage = cardContent.querySelector('.card__image');
-  const cardTitle = cardContent.querySelector('.card__title');
-  // перенесли в Card.js
-  // const btnLikeCard = cardContent.querySelector('.card__like-button');
-  // const btnRemoveCard = cardContent.querySelector('.card__remove-button');
+// создать экземпляр класса карточки, вызвать при отправке формы попапа 2
+function addCard(name, link) {
+  const card = new Card(name, link, '.template', openPopupZoom);
+  const cardElement = card.createCard();
 
-  cardImage.src = el.link;
-  cardImage.alt = el.name;
-  cardTitle.textContent = el.name;
-
-  // перенесли в Card.js
-  // btnLikeCard.addEventListener('click', likeCard);
-  // btnRemoveCard.addEventListener('click', removeCard);
-  // попап 3
-  cardImage.addEventListener('click', () => openPopupZoom(el.name, el.link));
-
-  return cardContent;
+  cards.prepend(cardElement);
 }
-
-function addCard(el) {
-  cards.prepend(createCard(el));
-}
-
-// перенесли в Card.js
-// function likeCard(evt) {
-//  evt.target.classList.toggle('card__like-button_active');
-// }
-
-// перенесли в Card.js
-// function removeCard(evt) {
-//  evt.target.parentElement.remove();
-// }
 
 // автозаполнение для попапа 1, используется при его открытии
 function autofillProfileInputs() {
@@ -155,12 +127,7 @@ function submitFormProfile(evt) {
 function submitFormPlace(evt) {
   evt.preventDefault();
 
-  const newCard = {
-      name: inputPlaceName.value,
-      link: inputPlaceLink.value
-  }
-
-  addCard(newCard);
+  addCard(inputPlaceName.value, inputPlaceLink.value);
   closePopup(popupPlace);
   formPopupPlace.reset();
 };
@@ -182,4 +149,6 @@ btnClosePopupZoom.addEventListener('click', () => closePopup(popupZoom));
 // закрытие по клику за пределами попапа
 popups.forEach((popup) => popup.addEventListener('click', closePopupByOverlayClick));
 
-initialCards.forEach(addCard);
+initialCards.forEach((el) => {
+  addCard(el.name, el.link);
+});
