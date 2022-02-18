@@ -43,6 +43,19 @@ class FormValidator {
     this._submitButton.disabled = !this._form.checkValidity();
     this._submitButton.classList.toggle(this._config.submitButtonErrorClass, !this._form.checkValidity());
   }
+
+  _setFormListeners() {
+    this._inputs.forEach((input) => {
+      input.addEventListener('input', () =>
+        this._checkInputValidity());
+      });
+
+    this._form.addEventListener('submit', this._preventDefaultSubmit);
+    this._form.addEventListener('input', () => this.setSubmitButtonState());
+    this._closeButton.addEventListener('click', () => {
+      this._inputs.forEach((input) => this._hideInputError(input));
+    });
+  }
 }
 
 export default FormValidator;

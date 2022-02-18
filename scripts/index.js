@@ -86,14 +86,6 @@ function openPopupZoom(name, link) {
 
 // закрыть попап
 function closePopup(popup) {
-  // убрать ошибку с форм при закрытии попапа
-  if (popup.querySelector(formConfig.formSelector)) {
-    const form = popup.querySelector(formConfig.formSelector);
-    const inputs = Array.from(form.querySelectorAll(formConfig.inputSelector));
-
-    inputs.forEach((input) => hideInputError(input, form, formConfig));
-  }
-
   popup.classList.remove('popup_is-open');
   document.removeEventListener('keydown', closePopupByEsc);
 }
