@@ -39,11 +39,11 @@ formValidatorPopupProfile.enableValidation();
 formValidatorPopupPlace.enableValidation();
 
 // создать экземпляр класса карточки, вызвать при отправке формы попапа 2
-function addCard(name, link) {
+function createCard(name, link) {
   const card = new Card(name, link, '.template', openPopupZoom);
   const cardElement = card.createCard();
 
-  cards.prepend(cardElement);
+  return cardElement;
 }
 
 // автозаполнение для попапа 1, используется при его открытии
@@ -94,9 +94,6 @@ function closePopup(popup) {
   document.removeEventListener('keydown', closePopupByEsc);
 }
 
-// ф: закрыть попап с формой
-// перебор инпутов и сбросить ошибки (resetInputErrors)
-
 // закрыть попап по клику за его пределами
 function closePopupByOverlayClick(evt) {
   if (evt.target.classList.contains('popup')) {
@@ -127,7 +124,7 @@ function submitFormProfile(evt) {
 function submitFormPlace(evt) {
   evt.preventDefault();
 
-  addCard(inputPlaceName.value, inputPlaceLink.value);
+  cards.prepend(createCard(inputPlaceName.value, inputPlaceLink.value));
   closePopup(popupPlace);
   formPopupPlace.reset();
 };
@@ -150,5 +147,5 @@ btnClosePopupZoom.addEventListener('click', () => closePopup(popupZoom));
 popups.forEach((popup) => popup.addEventListener('click', closePopupByOverlayClick));
 
 initialCards.forEach((el) => {
-  addCard(el.name, el.link);
+  cards.append(createCard(el.name, el.link));
 });
