@@ -2,6 +2,7 @@ import initialCards from './initialCards.js';
 import formConfig from './formConfig.js';
 import Section from './Section.js';
 import Popup from './Popup.js';
+import PopupWithImage from './PopupWithImage.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 
@@ -33,8 +34,8 @@ const formValidatorPopupPlace = new FormValidator(formConfig, formPopupPlace);
 
 // элементы попапа 3 (увеличить карточку)
 const popupZoom = document.querySelector('.popup_type_image');
-const popupImg = popupZoom.querySelector('.popup__img');
-const popupImgTitle = popupZoom.querySelector('.popup__img-title');
+// const popupImg = popupZoom.querySelector('.popup__img');
+// const popupImgTitle = popupZoom.querySelector('.popup__img-title');
 const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
 
 formValidatorPopupProfile.enableValidation();
@@ -82,6 +83,7 @@ function openPopupPlace(popup, formValidator) {
   openFormPopup(popup, formValidator);
 }
 
+// отправляется в класс PopupWithImage
 function openPopupZoom(name, link) {
   popupImg.src = link;
   popupImg.alt = name;
