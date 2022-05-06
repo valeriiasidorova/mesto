@@ -11,7 +11,6 @@ import FormValidator from '../components/FormValidator.js';
 const popups = Array.from(document.querySelectorAll('.popup'));
 
 // элементы попапа 1 (ред. профиль)
-const popupProfile = document.querySelector('.popup_type_profile');
 const btnEditProfile = document.querySelector('.button_type_edit');
 const btnClosePopupProfile = popupProfile.querySelector('.popup__close-button_profile');
 const formPopupProfile = popupProfile.querySelector('.popup__form_profile');
@@ -35,6 +34,9 @@ cards.renderItems();
 
 const popupZoom = new PopupWithImage('.popup_type_image');
 popupZoom.setEventListeners();
+
+const popupProfile = new PopupWithForm({ popupSelector: '.popup_type_profile', submitFormFunc: submitFormProfile });
+popupProfile.setEventListeners();
 
 formValidatorPopupProfile.enableValidation();
 formValidatorPopupPlace.enableValidation();
@@ -76,24 +78,10 @@ function openFormPopup(popup, formValidator) {
   openPopup(popup);
 }
 
-function openPopupProfile(popup, formValidator) {
-  autofillProfileInputs();
-  openFormPopup(popup, formValidator);
-}
-
 function openPopupPlace(popup, formValidator) {
   clearPlaceInputs();
   openFormPopup(popup, formValidator);
 }
-
-// отправляется в класс PopupWithImage
-function openPopupZoom(name, link) {
-  popupImg.src = link;
-  popupImg.alt = name;
-  popupImgTitle.textContent = name;
-
-  openPopup(popupZoom);
-};
 
 // закрыть попап
 function closePopup(popup) {
@@ -146,9 +134,6 @@ formPopupProfile.addEventListener('submit', submitFormProfile); // отправ�
 btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace, formValidatorPopupPlace)); // открыть попап
 btnClosePopupPlace.addEventListener('click', () => closePopup(popupPlace)); // закрыть попап
 formPopupPlace.addEventListener('submit', submitFormPlace); // отправить форму, добавить карточку и закрыть попап
-
-// попап 3
-btnClosePopupZoom.addEventListener('click', () => closePopup(popupZoom));
 
 // закрытие по клику за пределами попапа
 popups.forEach((popup) => popup.addEventListener('click', closePopupByOverlayClick));
