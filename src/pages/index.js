@@ -1,7 +1,6 @@
 import initialCards from '../utils/initialCards.js';
 import formConfig from '../utils/formConfig.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -31,14 +30,11 @@ const inputPlaceName = popupPlace.querySelector('.popup__input_type_place-name')
 const inputPlaceLink = popupPlace.querySelector('.popup__input_type_place-link');
 const formValidatorPopupPlace = new FormValidator(formConfig, formPopupPlace);
 
-// элементы попапа 3 (увеличить карточку)
-const popupZoom = document.querySelector('.popup_type_image');
-// const popupImg = popupZoom.querySelector('.popup__img');
-// const popupImgTitle = popupZoom.querySelector('.popup__img-title');
-const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
-
 const cards = new Section({ items: initialCards, renderer: createCard }, '.cards');
 cards.renderItems();
+
+const popupZoom = new PopupWithImage('.popup_type_image');
+popupZoom.setEventListeners();
 
 formValidatorPopupProfile.enableValidation();
 formValidatorPopupPlace.enableValidation();
