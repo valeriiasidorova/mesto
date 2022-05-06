@@ -104,12 +104,8 @@ function submitFormProfile(inputValues) {
   });
 }
 
-function submitFormPlace(evt) {
-  evt.preventDefault();
-
-  cards.prepend(createCard(inputPlaceName.value, inputPlaceLink.value));
-  closePopup(popupPlace);
-  formPopupPlace.reset();
+function submitFormPlace(inputValues) {
+  createCard(inputValues['input-place-name'], inputValues['input-place-bio']);
 };
 
 // ---------- Слушатели ----------
