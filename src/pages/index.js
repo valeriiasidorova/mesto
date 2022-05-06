@@ -111,10 +111,18 @@ function submitFormPlace(evt) {
 };
 
 // ---------- Слушатели ----------
-// попап 1
-btnEditProfile.addEventListener('click', () => openPopupProfile(popupProfile, formValidatorPopupProfile)); // открыть попап
-btnClosePopupProfile.addEventListener('click', () => closePopup(popupProfile)); // закрыть попап
-formPopupProfile.addEventListener('submit', submitFormProfile); // отправить форму, обновить инфу в профиле и закрыть попап
+btnEditProfile.addEventListener('click', () => {
+  popupProfile.open();
+
+  inputProfileName.value = userInfo.getUserInfo().name;
+  inputProfileBio.value = userInfo.getUserInfo().bio;
+
+  formValidatorPopupProfile.setSubmitButtonState();
+
+  popupProfile.inputs.forEach((input) => {
+    formValidatorPopupProfile.hideInputError(input);
+  });
+});
 
 // попап 2
 btnAddCard.addEventListener('click', () => openPopupPlace(popupPlace, formValidatorPopupPlace)); // открыть попап
