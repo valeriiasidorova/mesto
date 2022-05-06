@@ -1,9 +1,9 @@
 class Card {
-  constructor(name, link, cardSelector, openPopupFunc) {
+  constructor(name, link, cardSelector, handleCardClick) {
     this._name = name;
     this._link = link;
     this._cardSelector = cardSelector;
-    this._openPopupFunc = openPopupFunc;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -39,9 +39,8 @@ class Card {
       .querySelector('.card__remove-button')
       .addEventListener('click', () => this._removeCard());
 
-
     this._cardImage.addEventListener('click', () =>
-      this._openPopupFunc(this._cardImage.alt, this._cardImage.src)
+      this._handleCardClick(this._cardImage.alt, this._cardImage.src)
     );
   }
 
