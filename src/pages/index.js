@@ -18,7 +18,6 @@ const inputProfileBio = popupProfile.querySelector('.popup__input_type_profile-b
 const formValidatorPopupProfile = new FormValidator(formConfig, formPopupProfile);
 
 // элементы попапа 2 (доб. карточку)
-const popupPlace = document.querySelector('.popup_type_place');
 const btnAddCard = document.querySelector('.button_type_add');
 const btnClosePopupPlace = popupPlace.querySelector('.popup__close-button_place');
 const formPopupPlace = popupPlace.querySelector('.popup__form_place');
@@ -34,6 +33,9 @@ popupZoom.setEventListeners();
 
 const popupProfile = new PopupWithForm({ popupSelector: '.popup_type_profile', submitFormFunc: submitFormProfile });
 popupProfile.setEventListeners();
+
+const popupPlace = new PopupWithForm({ popupSelector: '.popup_type_place', submitFormFunc: submitFormPlace });
+popupPlace.setEventListeners();
 
 const userInfo = new UserInfo({ userNameSelector: '.profile__name', userBioSelector: '.profile__bio' });
 
