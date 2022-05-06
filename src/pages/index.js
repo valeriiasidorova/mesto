@@ -45,10 +45,11 @@ function handleCardClick({ name: name, link: link }) {
 
 // создать экземпляр класса карточки, вызвать при отправке формы попапа 2
 function createCard(name, link) {
-  const card = new Card(name, link, '.template', openPopupZoom);
+  const card = new Card(name, link, '.template', () => {
+    handleCardClick({ name: name, link: link });
+  });
   const cardElement = card.createCard();
-
-  return cardElement;
+  cards.addItem(cardElement);
 }
 
 // автозаполнение для попапа 1, используется при его открытии
