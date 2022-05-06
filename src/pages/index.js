@@ -39,6 +39,10 @@ popupZoom.setEventListeners();
 formValidatorPopupProfile.enableValidation();
 formValidatorPopupPlace.enableValidation();
 
+function handleCardClick({ name: name, link: link }) {
+  popupZoom.open({ name: name, link: link });
+}
+
 // создать экземпляр класса карточки, вызвать при отправке формы попапа 2
 function createCard(name, link) {
   const card = new Card(name, link, '.template', openPopupZoom);
