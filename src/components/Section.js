@@ -1,8 +1,8 @@
 class Section {
-  constructor( { items, renderer }, containerSelector ) {
+  constructor({ items, renderer }, containerSelector) {
     this._items = items;
     this._renderer = renderer;
-    this._containerSelector = document.querySelector(containerSelector);
+    this._container = document.querySelector(containerSelector);
   }
 
   renderItems() {
@@ -11,9 +11,8 @@ class Section {
     });
   }
 
-  // разделить логику на append и prepend
   addItem(el) {
-    this._container.append(el);
+    this._container.prepend(el);
   }
 }
 

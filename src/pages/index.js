@@ -1,7 +1,12 @@
-import initialCards from './initialCards.js';
-import formConfig from './formConfig.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import initialCards from '../utils/initialCards.js';
+import formConfig from '../utils/formConfig.js';
+import Section from '../components/Section.js';
+import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
 
 // коллекция попапов для работы с оверлеем
 const popups = Array.from(document.querySelectorAll('.popup'));
@@ -31,8 +36,8 @@ const formValidatorPopupPlace = new FormValidator(formConfig, formPopupPlace);
 
 // элементы попапа 3 (увеличить карточку)
 const popupZoom = document.querySelector('.popup_type_image');
-const popupImg = popupZoom.querySelector('.popup__img');
-const popupImgTitle = popupZoom.querySelector('.popup__img-title');
+// const popupImg = popupZoom.querySelector('.popup__img');
+// const popupImgTitle = popupZoom.querySelector('.popup__img-title');
 const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
 
 formValidatorPopupProfile.enableValidation();
@@ -80,6 +85,7 @@ function openPopupPlace(popup, formValidator) {
   openFormPopup(popup, formValidator);
 }
 
+// отправляется в класс PopupWithImage
 function openPopupZoom(name, link) {
   popupImg.src = link;
   popupImg.alt = name;
