@@ -12,7 +12,6 @@ const popups = Array.from(document.querySelectorAll('.popup'));
 
 // элементы попапа 1 (ред. профиль)
 const btnEditProfile = document.querySelector('.button_type_edit');
-const btnClosePopupProfile = popupProfile.querySelector('.popup__close-button_profile');
 const formPopupProfile = popupProfile.querySelector('.popup__form_profile');
 const inputProfileName = popupProfile.querySelector('.popup__input_type_profile-name');
 const inputProfileBio = popupProfile.querySelector('.popup__input_type_profile-bio');
@@ -54,22 +53,10 @@ function createCard(name, link) {
   cards.addItem(cardElement);
 }
 
-// автозаполнение для попапа 1, используется при его открытии
-function autofillProfileInputs() {
-  inputProfileName.value = profileName.textContent;
-  inputProfileBio.value = profileBio.textContent;
-}
-
 // сброс инпутов для попапа 2, используется при его открытии
 function clearPlaceInputs() {
   inputPlaceName.value = '';
   inputPlaceLink.value = '';
-}
-
-// открыть попап – вызывается в отдельных функциях открытия попапов
-function openPopup(popup) {
-  popup.classList.add('popup_is-open');
-  document.addEventListener('keydown', closePopupByEsc);
 }
 
 // для попапов с формой (1, 2) – открыть и задать состояние кнопки submit в зависимости от валидности
@@ -108,12 +95,11 @@ function closePopupByEsc(evt) {
   }
 }
 
-function submitFormProfile(evt) {
-  evt.preventDefault();
-
-  profileName.textContent = inputProfileName.value;
-  profileBio.textContent = inputProfileBio.value;
-  closePopup(popupProfile);
+function submitFormProfile(inputValues) {
+  userInfo.setUserInfo({
+    name: inputValues['input-profile-name'],
+    bio: inputValues['input-profile-bio']
+  });
 }
 
 function submitFormPlace(evt) {
