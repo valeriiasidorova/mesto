@@ -1,24 +1,21 @@
+import {
+  btnEditProfile,
+  formPopupProfile,
+  inputProfileName,
+  inputProfileBio,
+  btnAddCard,
+  formPopupPlace
+} from '../utils/constants.js';
 import initialCards from '../utils/initialCards.js';
 import formConfig from '../utils/formConfig.js';
 import Section from '../components/Section.js';
+import Card from '../components/Card.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
-import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 
-// элементы попапа 1 (ред. профиль)
-const btnEditProfile = document.querySelector('.button_type_edit');
-const formPopupProfile = document.querySelector('.popup__form_profile');
-const inputProfileName = document.querySelector('.popup__input_type_profile-name');
-const inputProfileBio = document.querySelector('.popup__input_type_profile-bio');
-const formValidatorPopupProfile = new FormValidator(formConfig, formPopupProfile);
-
-// элементы попапа 2 (доб. карточку)
-const btnAddCard = document.querySelector('.button_type_add');
-const formPopupPlace = document.querySelector('.popup__form_place');
-const formValidatorPopupPlace = new FormValidator(formConfig, formPopupPlace);
-
+// экземпляры классов
 const cards = new Section({ items: initialCards, renderer: createCard }, '.cards');
 cards.renderItems();
 
@@ -33,8 +30,12 @@ popupPlace.setEventListeners();
 
 const userInfo = new UserInfo({ userNameSelector: '.profile__name', userBioSelector: '.profile__bio' });
 
+const formValidatorPopupProfile = new FormValidator(formConfig, formPopupProfile);
 formValidatorPopupProfile.enableValidation();
+
+const formValidatorPopupPlace = new FormValidator(formConfig, formPopupPlace);
 formValidatorPopupPlace.enableValidation();
+
 
 function handleCardClick({ name: name, link: link }) {
   popupZoom.open({ name: name, link: link });
@@ -60,7 +61,6 @@ function submitFormPlace(inputValues) {
 };
 
 // ---------- Слушатели ----------
-
 // попап 1
 btnEditProfile.addEventListener('click', () => {
   popupProfile.open();
