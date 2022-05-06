@@ -11,9 +11,6 @@ import FormValidator from '../components/FormValidator.js';
 // коллекция попапов для работы с оверлеем
 const popups = Array.from(document.querySelectorAll('.popup'));
 
-// элементы для работы с темплейтом
-const cards = document.querySelector('.cards');
-
 // элементы попапа 1 (ред. профиль)
 const popupProfile = document.querySelector('.popup_type_profile');
 const btnEditProfile = document.querySelector('.button_type_edit');
@@ -39,6 +36,9 @@ const popupZoom = document.querySelector('.popup_type_image');
 // const popupImg = popupZoom.querySelector('.popup__img');
 // const popupImgTitle = popupZoom.querySelector('.popup__img-title');
 const btnClosePopupZoom = popupZoom.querySelector('.popup__close-button_image');
+
+const cards = new Section({ items: initialCards, renderer: createCard }, '.cards');
+cards.renderItems();
 
 formValidatorPopupProfile.enableValidation();
 formValidatorPopupPlace.enableValidation();
@@ -151,7 +151,3 @@ btnClosePopupZoom.addEventListener('click', () => closePopup(popupZoom));
 
 // закрытие по клику за пределами попапа
 popups.forEach((popup) => popup.addEventListener('click', closePopupByOverlayClick));
-
-initialCards.forEach((el) => {
-  cards.append(createCard(el.name, el.link));
-});
