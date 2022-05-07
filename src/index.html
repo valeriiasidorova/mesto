@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Жак-Ив Кусто</title>
-    <link rel="stylesheet" href="./pages/index.css" />
+  <!--  <link rel="stylesheet" href="./pages/index.css" /> -->
   </head>
 
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="./images/header__logo.svg" alt="Логотип" />
+      <img class="header__logo" src="<%=require('./images/header__logo.svg')%>" alt="Логотип" />
     </header>
 
     <main class="content">
       <section class="profile">
         <img
           class="profile__avatar"
-          src="./images/profile__avatar.jpg"
+          src="<%=require('./images/profile__avatar.jpg')%>"
           alt="Фото профиля"
         />
         <div class="profile__info">
@@ -165,6 +165,6 @@
       </article>
     </template>
 
-   <script type="module" src="./pages/index.js"></script>
+<!-- <script type="module" src="./pages/index.js"></script> -->
   </body>
 </html>

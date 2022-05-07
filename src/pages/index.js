@@ -1,3 +1,4 @@
+import './index.css';
 import {
   btnEditProfile,
   formPopupProfile,
@@ -39,7 +40,7 @@ formValidatorPopupPlace.enableValidation();
 
 function handleCardClick({ name: name, link: link }) {
   popupZoom.open({ name: name, link: link });
-}
+};
 
 function createCard(name, link) {
   const card = new Card(name, link, '.template', () => {
@@ -47,14 +48,14 @@ function createCard(name, link) {
   });
   const cardElement = card.createCard();
   cards.addItem(cardElement);
-}
+};
 
 function submitFormProfile(inputValues) {
   userInfo.setUserInfo({
     name: inputValues['input-profile-name'],
     bio: inputValues['input-profile-bio']
   });
-}
+};
 
 function submitFormPlace(inputValues) {
   createCard(inputValues['input-place-name'], inputValues['input-place-bio']);
@@ -84,4 +85,4 @@ btnAddCard.addEventListener('click', () => {
   popupPlace.inputs.forEach((input) => {
     formValidatorPopupPlace.hideInputError(input);
   });
-})
+});
