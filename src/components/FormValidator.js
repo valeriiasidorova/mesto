@@ -12,17 +12,17 @@ class FormValidator {
   }
 
   _showInputError(input) {
-    const errorElement = this._form.querySelector(`#${input.id}-error`);
+    this._errorElement = this._form.querySelector(`#${input.id}-error`);
 
     input.classList.add(this._config.inputErrorClass);
-    errorElement.textContent = input.validationMessage;
+    this._errorElement.textContent = input.validationMessage;
   }
 
-  hideInputError(input) {
-    const errorElement = this._form.querySelector(`#${input.id}-error`);
+  _hideInputError(input) {
+    this._errorElement = this._form.querySelector(`#${input.id}-error`);
 
     input.classList.remove(this._config.inputErrorClass);
-    errorElement.textContent = '';
+    this._errorElement.textContent = '';
   }
 
   _checkInputValidity() {
@@ -30,7 +30,7 @@ class FormValidator {
       if (!input.validity.valid) {
         this._showInputError(input);
       } else {
-        this.hideInputError(input);
+        this._hideInputError(input);
       }
     });
   }
@@ -39,7 +39,7 @@ class FormValidator {
     evt.preventDefault();
   }
 
-  setSubmitButtonState() {
+  _setSubmitButtonState() {
     this._submitButton.disabled = !this._form.checkValidity();
     this._submitButton.classList.toggle(this._config.submitButtonErrorClass, !this._form.checkValidity());
   }
@@ -51,10 +51,15 @@ class FormValidator {
       });
 
     this._form.addEventListener('submit', this._preventDefaultSubmit);
-    this._form.addEventListener('input', () => this.setSubmitButtonState());
+    this._form.addEventListener('input', () => this._setSubmitButtonState());
     this._closeButton.addEventListener('click', () => {
-      this._inputs.forEach((input) => this.hideInputError(input));
+      this._inputs.forEach((input) => this._hideInputError(input));
     });
+  }
+
+  resetValidation() {
+    this._setSubmitButtonState();
+    this._inputs.forEach((input) => this._hideInputError(input));
   }
 
   enableValidation() {

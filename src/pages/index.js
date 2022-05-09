@@ -17,7 +17,9 @@ import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
 // экземпляры классов
-const cards = new Section({ items: initialCards, renderer: createCard }, '.cards');
+const cards = new Section({
+  items: initialCards, renderer: (card) => cards.appendItem(createCard(card.name, card.link))
+}, '.cards');
 cards.renderItems();
 
 const popupZoom = new PopupWithImage('.popup_type_image');
@@ -47,7 +49,8 @@ function createCard(name, link) {
     handleCardClick({ name: name, link: link });
   });
   const cardElement = card.createCard();
-  cards.addItem(cardElement);
+
+  return cardElement;
 };
 
 function submitFormProfile(inputValues) {
@@ -55,10 +58,16 @@ function submitFormProfile(inputValues) {
     name: inputValues['input-profile-name'],
     bio: inputValues['input-profile-bio']
   });
+  popupProfile.close();
 };
 
 function submitFormPlace(inputValues) {
-  createCard(inputValues['input-place-name'], inputValues['input-place-bio']);
+  const card = {
+    name: inputValues['input-place-name'],
+    link: inputValues['input-place-link']
+  }
+  cards.prependItem(createCard(card.name, card.link));
+  popupPlace.close();
 };
 
 // ---------- Слушатели ----------
@@ -69,20 +78,12 @@ btnEditProfile.addEventListener('click', () => {
   inputProfileName.value = userInfo.getUserInfo().name;
   inputProfileBio.value = userInfo.getUserInfo().bio;
 
-  formValidatorPopupProfile.setSubmitButtonState();
-
-  popupProfile.inputs.forEach((input) => {
-    formValidatorPopupProfile.hideInputError(input);
-  });
+  formValidatorPopupProfile.resetValidation();
 });
 
 // попап 2
 btnAddCard.addEventListener('click', () => {
   popupPlace.open();
 
-  formValidatorPopupPlace.setSubmitButtonState();
-
-  popupPlace.inputs.forEach((input) => {
-    formValidatorPopupPlace.hideInputError(input);
-  });
+  formValidatorPopupPlace.resetValidation();
 });
